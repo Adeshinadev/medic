@@ -1,0 +1,104 @@
+{% extends 'patient_templates/base_template.html'%} {% block page_title %}
+<h5>All patients</h5>
+
+{% endblock page_title %} {% block main_content %}
+<style>
+    .sc2 {
+        word-wrap: wrap;
+        display: block;
+        overflow-x: auto;
+    }
+    
+    .lopy {
+        word-wrap: none !important;
+    }
+</style>
+<section class="content">
+    {% include 'patient_templates/alert_messeges.html' %}
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="card manage sc2">
+                <div class="card-header">
+                    <span>Patients Report</span>
+                    <div class="card-tools d-flex">
+
+                        <form role="form" method="POST" action="" enctype="multipart/form-data" class="mr-4 mt-1">
+                            {% csrf_token %}
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="search" class="form-control float-right" placeholder="Search">
+
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                        <a class="btn btn-sm btn-info mr-2" href="{% url 'patient_form' %}" role="button">+ Add Staff</a>
+
+
+                    </div>
+{% if submitted_report_morning and submitted_report_afternoon and submitted_report_evening %}
+                    <p>All report has been recorded for today, Thanks</p>
+                      {% else %}
+ <form method="post" style="font-size:13px;" class="px-0 py-2" action="{% url 'patient_report' %}">
+     {% csrf_token %}
+<h6>Hi {{request.user.username}}, please record your usage by choosing the appropriate period in the select input below</h6>
+
+
+
+<div id="div_id_category" class="form-group">
+
+    <div class="">
+         <label for="id_category" class="">
+                Time of the day
+            </label>
+        <select name="time_of_the_day" class="select form-control" id="id_category" required>
+
+            <option selected="selected" disabled="disabled">---------</option>
+           {% if not submitted_report_morning %}
+            <option value="Morning">Morning</option>
+            {% endif %}
+             {% if not submitted_report_afternoon %}
+            <option value="Afternoon">Afternoon</option>
+            {% endif %}
+             {% if not submitted_report_evening %}
+            <option value="Evening">Evening</option>
+            {% endif %}
+        </select>
+</div>
+
+     <div class="">
+          <label for="id_res" class="">
+                Response
+            </label>
+        <select name="response" class="select form-control" id="id_res" required>
+
+            <option selected="selected" disabled="disabled">---------</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="no dose">No dose</option>
+        </select>
+</div>
+
+
+
+</div>
+          <input type="submit" class="btn btn-primary">
+                    </form>
+
+
+                    {% endif %}
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}
