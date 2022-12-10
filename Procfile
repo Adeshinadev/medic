@@ -1,1 +1,1 @@
-web: gunicorn  pharm.wsgi --log-file -
+web: gunicorn pharm.wsgi --log-file - --log-level debug --preload --workers 1
