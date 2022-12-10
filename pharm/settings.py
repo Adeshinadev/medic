@@ -29,7 +29,7 @@ DEBUG = True
 
 # ALLOWED_HOSTS = ['pharmacymanage.herokuapp.com']
 ALLOWED_HOSTS = [
-    'pharmacy-management-system2.herokuapp.com',
+    'wild-medic.herokuapp.com',
     '127.0.0.1',
     "192.168.0.103",
 ]
@@ -98,14 +98,23 @@ WSGI_APPLICATION = 'pharm.wsgi.application'
 #         'HOST':'localhost'
 #     }
 # }
-
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if "PRODUCTION" in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'DB_NAME',
+            'USER': os.environ.get("DB_USER"),
+            'PASSWORD': os.environ.get("DB_PASS")
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
 
 
 
@@ -165,7 +174,10 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'static/images')
 
 
 
+if "PRODUCTION" in os.environ:
+    import django_heroku
 
+    django_heroku.settings(locals())
 
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST='smtp.gmail.com'
