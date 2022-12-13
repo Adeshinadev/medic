@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <tbody>
                         <tr>
-                            <td>Full Name: {{patient.patientname}}</td>
+                            <td>Full Name: {{patient.first_name}} {{patient.first_name}}</td>
                             <br>
                             <td>Email: {{ patient.admin.email }}</td>
                             <br>
@@ -27,9 +27,9 @@
                             <br>
                             <td>Gender: {{ patient.gender }}</td>
                             <br>
-                            <td>Address: {{ patient.adresss }}</td>
+                            <td>Address: {{ patient.address }}</td>
                             <br>
-                            <td>Tel: {{ patient.mobile }}</td>
+                            <td>Tel: {{ patient.phone_number }}</td>
 
                         </tr>
                     </tbody>
@@ -42,8 +42,8 @@
                     <i class="fa fa-align-justify"></i> Patient's Medical Info
                 </div>
                 <div class="card-body">
-                    <h6>Joined: </h6>
-                    <h6>Last Login: </h6>
+                    <h6>Joined:{{patient.admin.date_joined}}</h6>
+                    <h6>Last Login:{% if patient.admin.last_login %} {{patient.admin.last_login}} {% else %} Haven't logged-in {% endif %}</h6>
 
                 </div>
             </div>
