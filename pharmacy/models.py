@@ -29,7 +29,7 @@ class Patients(models.Model):
     first_name = models.CharField(max_length=20, null=True, blank=True)
     last_name = models.CharField(max_length=20, null=True, blank=True)
     dob = models.DateTimeField(auto_now_add=False, auto_now=False, null=True, blank=True)
-    phone_number = models.CharField(max_length=10, null=True, blank=True)
+    phone_number = models.CharField(max_length=18, null=True, blank=True)
     profile_pic = models.ImageField(default="patient.jpg", null=True, blank=True)
     age = models.IntegerField(default='0', blank=True, null=True)
     address = models.CharField(max_length=300, null=True, blank=True)
